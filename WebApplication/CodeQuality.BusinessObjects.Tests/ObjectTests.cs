@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace CodeQuality.BusinessObjects.Tests
 {
@@ -31,6 +32,27 @@ namespace CodeQuality.BusinessObjects.Tests
             var mgr = ObjectFactory.GetObject("mgr", "Bill", "Lumberg");
 
             mgr.Login();
+        }
+
+        [TestMethod]
+        public void Create1000Customers()
+        {
+            USCustomer customer;
+
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            for(var i = 0; i < 1000; i++)
+            {
+                customer = (USCustomer)ObjectFactory.GetObject("1_USD", "Bill", "Lumberg");
+            }
+
+            stopwatch.Stop();
+
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds <= 3000, "Creating 1000 customers took longer than three seconds.");
+
+            Debug.WriteLine($"Creating 1000 customers took {stopwatch.ElapsedMilliseconds}ms.");
         }
     }
 }

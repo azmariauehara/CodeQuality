@@ -9,6 +9,8 @@ namespace WebApplication1.Pages
     {
         private readonly AuthContext _context;
 
+        public IndexModel() { }
+
         IndexModel(AuthContext context)
         {
             _context = context;
